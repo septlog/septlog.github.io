@@ -8,6 +8,25 @@ const config: webpack.Configuration = {
     path: PATH.resolve(__dirname, 'dist'),
     filename: 'foo.bundle.js',
   },
+  module: {
+    rules: [
+      {
+        test: [/\.ts$/, /.\.tsx$/],
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: 'tsconfig.json',
+            },
+          },
+        ],
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx'],
+  },
 };
 
 export default config;
