@@ -1,32 +1,54 @@
-import { dirTree } from './node/fs/file-match';
 import PATH from 'path';
 import webpack from 'webpack';
+import HWP from 'html-webpack-plugin';
 const config: webpack.Configuration = {
-  mode: 'production',
-  entry: './foo.js',
+  mode: 'development',
+  devtool: 'source-map',
+
+  entry: {
+    index: PATH.join(__dirname, 'index'),
+    'pages/portfolio/index': PATH.join(__dirname, 'pages/portfolio/index'),
+  },
   output: {
-    path: PATH.resolve(__dirname, 'dist'),
-    filename: 'foo.bundle.js',
+    path: PATH.join(__dirname, 'doc'),
+    filename: '[name].js',
   },
   module: {
     rules: [
       {
-        test: [/\.ts$/, /.\.tsx$/],
+        test: [/\.ts$/],
         use: [
           {
             loader: 'ts-loader',
             options: {
-              configFile: 'tsconfig.json',
+              configFile: 'tsconfig.browser.json',
             },
           },
         ],
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
+    extensions: ['.js', '.ts'],
   },
+  plugins: [
+    new HWP({
+      template: PATH.join(__dirname, 'index.html'),
+      chunks: ['index'],
+      filename: 'index.html',
+      publicPath: './',
+    }),
+    new HWP({
+      template: PATH.join(__dirname, 'pages/portfolio/index.html'),
+      chunks: ['pages/portfolio/index'],
+      filename: 'pages/portfolio/index.html',
+      publicPath: '../../',
+    }),
+  ],
 };
-
 export default config;

@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es6",
+    "module": "commonjs",
     "sourceMap": true,
-    "outDir": "dist",
     "strict": false,
     "noImplicitAny": false,
     "moduleResolution": "node",
@@ -12,5 +11,5 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src"]
+  "include": ["node"]
 }
