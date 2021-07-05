@@ -10,7 +10,7 @@ const config: webpack.Configuration = {
     'pages/portfolio/index': PATH.join(__dirname, 'pages/portfolio/index'),
   },
   output: {
-    path: PATH.join(__dirname, 'doc'),
+    path: PATH.join(__dirname, 'docs'),
     filename: '[name].js',
   },
   module: {
